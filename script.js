@@ -16,7 +16,10 @@ Write another function that removes the last item and updates the displayed list
 /* Declare empty array */
 let shoppingList =[];
 
+let filteredList = [];
 
+/*Variable to store if item exist in shopping list or not*/
+let isPresent = false;
 
 /*Event listener */
 let additem =document.getElementById("add-item");
@@ -26,6 +29,7 @@ additem.addEventListener("click", function() {
     /* Item accepted as user input */
 let item = document.getElementById("user-item").value;
 	addItem(item);
+  
 });
 
 removeitem.addEventListener("click", function() {
@@ -33,12 +37,23 @@ removeitem.addEventListener("click", function() {
 });
 /*Function to add items*/
 function addItem(item){
-  /*Add item to array*/
-  console.log(item);
+  /*Check for duplicates before deciding to add to array*/
+  filterItems(item);
+
+  /*Add item to array if no dupllicates present*/
+  if(isPresent == false){
   shoppingList.push(item);
-  for(let i=0; i< shoppingList.length;i++){
-  console.log(shoppingList[i])
+  /* Resetting the value of isPresent
+   because otherwise no new items get added 
+   to list as isPresent remains true*/
+   isPresent = false;
   }
+
+  displayList();
+  // for(let i=0; i< shoppingList.length;i++){
+  // console.log(shoppingList[i])
+  // }
+  
 }
 /*Function to remove last item*/
 function removeLastItem(){
@@ -50,7 +65,25 @@ function removeLastItem(){
 }
 /*Log all items to console*/
 function displayList(){
-for(let listitem1 of shoppingList){
-    console.log(listitem1);
+  console.log("Display shopping list");
+for(let listitem of shoppingList){
+    console.log(listitem);
+}
+}
+/*Filter items*/
+function filterItems(item){
+  
+  /* Iterate to check if item already exist in shopping list */
+ for(let i=0; i<shoppingList.length; i++){
+    if(item === shoppingList[i]){
+      //add to a new array to display
+      filteredList.push(shoppingList[i]);
+      isPresent = true;
+    }
+ }
+ /* show filtered list in console*/
+ console.log("Displaying filteredList");
+ for(let filteritem of filteredList){
+    console.log(filteritem);
 }
 }
