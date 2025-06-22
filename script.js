@@ -21,6 +21,9 @@ let filteredList = [];
 /*Variable to store if item exist in shopping list or not*/
 let isPresent = false;
 
+//DOM for ul to be rendered in web page
+ let cartList = document.getElementById("cart");
+
 /*Event listener */
 let additem =document.getElementById("add-item");
 let removeitem =document.getElementById("remove-item");
@@ -49,11 +52,14 @@ function addItem(item){
    isPresent = false;
   }
 
+
   displayList();
   // for(let i=0; i< shoppingList.length;i++){
   // console.log(shoppingList[i])
   // }
   
+  /* render in web page*/
+renderCart();
 }
 /*Function to remove last item*/
 function removeLastItem(){
@@ -62,6 +68,10 @@ function removeLastItem(){
 //     console.log(listitem);
 //   }
   displayList();
+
+  /* render in web page*/
+renderCart();
+
 }
 /*Log all items to console*/
 function displayList(){
@@ -86,4 +96,14 @@ function filterItems(item){
  for(let filteritem of filteredList){
     console.log(filteritem);
 }
+}
+
+/*Render to web page function definition*/
+function renderCart(){
+ cartList.innerHTML = ""; /*Clear existing list*/
+ for(let i=0;i<shoppingList.length;i++){
+   let cartItem = document.createElement("li");
+   cartItem.innerText = shoppingList[i];
+   cartList.appendChild(cartItem);
+ }
 }
